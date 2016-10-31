@@ -1,0 +1,5 @@
+entity.rng_contact_type.collection:
+  title: 'Contact types'
+  parent: system.admin_structure
+  description: 'Manage RNG contact types.'
+  route_name: entity.rng_contact_type.collection
