@@ -11,3 +11,6 @@ rng_contact.rng_contact_type.*:
     description:
       type: text
       label: 'Description'
+    courier_email_field:
+      type: text
+      label: 'ID of email field to use when sending mailings via Courier.'

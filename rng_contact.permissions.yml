@@ -1,3 +1,8 @@
+administer rng_contact:
+  title: 'Administer RNG Contact'
+  description: 'Manage settings for RNG Contact.'
+  restrict access: TRUE
+
 administer rng_contact types:
   title: 'Administer RNG contact types'
   description: 'Create, and perform any action on RNG contact types.'

@@ -3,6 +3,8 @@
 namespace Drupal\rng_contact\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\field\Entity\FieldConfig;
 
 /**
  * Defines the contact type configuration entity.
@@ -61,5 +63,61 @@ class RngContactType extends ConfigEntityBundleBase implements RngContactTypeInt
    * @var string
    */
   public $description;
+
+  /**
+   * ID of email field to use when sending mailings via Courier.
+   *
+   * @var string
+   */
+  protected $courier_email_field;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCourierEmailField() {
+    return $this->courier_email_field;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setCourierEmailField($courier_email_field) {
+    $this->courier_email_field = $courier_email_field;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+
+    $email_field_id = $this->getCourierEmailField();
+    $email_field = FieldConfig::loadByName('rng_contact', $this->id(), $email_field_id);
+    if ($email_field) {
+      $this->addDependency('config', $email_field->getConfigDependencyName());
+    }
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function onDependencyRemoval(array $dependencies) {
+    $changed = parent::onDependencyRemoval($dependencies);
+
+    foreach ($dependencies['config'] as $entity) {
+      if ($entity instanceof FieldConfigInterface) {
+        // Courier email field is being deleted.
+        if ($entity->getName() === $this->getCourierEmailField()) {
+          $this->setCourierEmailField(NULL);
+          $changed = TRUE;
+        }
+      }
+    }
+
+    return $changed;
+  }
 
 }
