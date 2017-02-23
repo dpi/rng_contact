@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Removed unused data table.
+ *
+ * Only used for translatable entities.
+ */
+function rng_contact_update_8001() {
+  $manager = \Drupal::entityDefinitionUpdateManager();
+
+  $entity_type = $manager->getEntityType('rng_contact')
+    ->set('data_table', NULL);
+
+  $manager->updateEntityType($entity_type);
+}

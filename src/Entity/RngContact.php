@@ -30,7 +30,6 @@ use Drupal\user\UserInterface;
  *     },
  *   },
  *   base_table = "rng_contact",
- *   data_table = "rng_contact_field_data",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
