@@ -17,6 +17,7 @@ use Drupal\user\UserInterface;
  *   bundle_label = @Translation("Contact type"),
  *   bundle_entity_type = "rng_contact_type",
  *   handlers = {
+ *     "storage_schema" = "Drupal\rng_contact\RngContactStorageSchema",
  *     "views_data" = "Drupal\rng_contact\Views\RngContactViewsData",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "access" = "Drupal\rng_contact\AccessControl\RngContactAccessControl",
